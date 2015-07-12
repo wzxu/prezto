@@ -11,3 +11,88 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+function up {
+  brew update
+  OUTDATED=$(brew outdated)
+  if [[ -n $OUTDATED ]]; then
+    echo "\e[1;34m==>\e[0m \e[1mOutdated Formulae\e[0m" && echo $OUTDATED && brew upgrade
+  fi
+}
+function upa {
+  LATEST=$(curl -sI https://github.com/atom/atom/releases/latest | grep Location | grep -Eo "[0-9][0-9\.]+")
+  CURRENT=$(atom -v)
+  if [[ $LATEST > $CURRENT ]]; then
+    echo "Updating Atom from $CURRENT to $LATEST..."
+    brew cask fetch --force atom && brew cask install --force atom
+  else
+    echo "Atom is already latest at $CURRENT."
+  fi
+  apm update -c false
+}
+# alias upm='brew reinstall --HEAD --with-official-libass mpv && brew linkapps mpv'
+alias upn='npm -g update'
+# alias upz='cd ~/.zprezto && git fetch upstream && git merge upstream/master && git submodule update --init --recursive && cd -'
+alias b='brew'
+alias bi='brew install'
+alias bc='brew cask'
+function bcs {
+  RESULT=$(script -q /dev/null brew cask search $1)
+  echo $RESULT
+  if [[ $RESULT != *"Partial matches"* ]]; then
+    echo "\e[1;34m==>\e[0m \e[1mShowing info for $1\e[0m"
+    PKGNAME=$1
+  elif [[ $RESULT == *"Exact match"* ]]; then
+    echo -n "\e[1;34m==>\e[0m \e[1mSelect package to show info [$1]:\e[0m "
+    read PKGNAME
+    if [[ -z $PKGNAME ]]; then
+      PKGNAME=$1
+    fi
+  else
+    echo -n "\e[1;34m==>\e[0m \e[1mSelect package to show info:\e[0m "
+    read PKGNAME
+    if [[ -z $PKGNAME ]]; then
+      return
+    fi
+  fi
+  brew cask info $PKGNAME
+}
+alias bci='brew cask install'
+alias zap='brew cask zap'
+alias sha256='shasum -a 256'
+alias a='/usr/local/bin/atom'
+alias aa='/usr/local/bin/atom .'
+alias f='find . -name'
+alias ni='npm install'
+alias nis='npm install --save-dev'
+alias nu='npm update'
+alias ppy='python -m SimpleHTTPServer'
+function ios {
+  if [[ $1 =~ ^[0-9]+$ ]]; then
+    IPORT=$1
+  else
+    IPORT=50022
+  fi
+  ~/Dropbox/Documents/Misc/itnl_rev8/itnl --iport $IPORT --lport 50022 &
+  SSHPID=$!
+  trap "kill $SSHPID" SIGINT SIGTERM EXIT
+  ssh root@localhost -p 50022
+  if [[ $? != 0 ]]; then
+    kill $SSHPID
+  fi
+}
+# alias ram='~/Dropbox/Documents/Settings/Scripts/ramdisk.sh'
+alias z='a ~/.zshrc'
+alias l='ls'
+alias l1='ls -1A'
+alias cls='clear'
+alias ft='cdf'
+alias tf='pushdf'
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g C='| wc -l'
+alias -g H='| head'
+alias -g L="| less"
+alias -g N="| /dev/null"
+alias -g S='| sort'
+alias -g G='| grep'
