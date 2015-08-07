@@ -32,6 +32,7 @@ function upa {
 # alias upm='brew reinstall --HEAD --with-official-libass mpv && brew linkapps mpv'
 alias upn='npm -g update'
 # alias upz='cd ~/.zprezto && git fetch upstream && git merge upstream/master && git submodule update --init --recursive && cd -'
+alias upp='up && upn && upa'
 alias b='brew'
 alias bi='brew install'
 alias bc='brew cask'
