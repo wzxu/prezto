@@ -42,7 +42,7 @@ alias gbs='git show-branch'
 alias gbS='git show-branch -a'
 
 # Commit (c)
-alias gc='git commit --verbose'
+alias gci='git commit --verbose'
 alias gca='git commit --verbose --all'
 alias gcm='git commit --message'
 alias gco='git checkout'
@@ -100,13 +100,14 @@ alias gix='git rm -r --cached'
 alias giX='git rm -rf --cached'
 
 # Log (l)
-alias gl='git log --topo-order --pretty=format:"${_git_log_medium_format}"'
-alias gls='git log --topo-order --stat --pretty=format:"${_git_log_medium_format}"'
-alias gld='git log --topo-order --stat --patch --full-diff --pretty=format:"${_git_log_medium_format}"'
-alias glo='git log --topo-order --pretty=format:"${_git_log_oneline_format}"'
-alias glg='git log --topo-order --all --graph --pretty=format:"${_git_log_oneline_format}"'
-alias glb='git log --topo-order --pretty=format:"${_git_log_brief_format}"'
+alias gl='git log --pretty=format:"${_git_log_medium_format}"'
+alias gls='git log --stat --pretty=format:"${_git_log_medium_format}"'
+alias gld='git log --stat --patch --full-diff --pretty=format:"${_git_log_medium_format}"'
+alias glo='git log --pretty=format:"${_git_log_oneline_format}"'
+alias glg='git log --all --graph --pretty=format:"${_git_log_oneline_format}"'
+alias glb='git log --pretty=format:"${_git_log_brief_format}"'
 alias glc='git shortlog --summary --numbered'
+alias glu='git log @{u}.. --stat --pretty=format:"${_git_log_medium_format}"'
 
 # Merge (m)
 alias gm='git merge'
