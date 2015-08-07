@@ -18,17 +18,7 @@ function up {
     echo "\e[1;34m==>\e[0m \e[1mOutdated Formulae\e[0m" && echo $OUTDATED && brew upgrade
   fi
 }
-function upa {
-  LATEST=$(curl -sI https://github.com/atom/atom/releases/latest | grep Location | grep -Eo "[0-9][0-9\.]+")
-  CURRENT=$(atom -v)
-  if [[ $LATEST > $CURRENT ]]; then
-    echo "Updating Atom from $CURRENT to $LATEST..."
-    brew cask fetch --force atom && brew cask install --force atom
-  else
-    echo "Atom is already latest at $CURRENT."
-  fi
-  apm update -c false
-}
+alias upa='apm update -c false'
 # alias upm='brew reinstall --HEAD --with-official-libass mpv && brew linkapps mpv'
 alias upn='npm -g update'
 # alias upz='cd ~/.zprezto && git fetch upstream && git merge upstream/master && git submodule update --init --recursive && cd -'
