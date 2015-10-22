@@ -59,7 +59,7 @@ alias nu='npm uninstall'
 alias nus='npm uninstall --save-dev'
 alias nup='npm update'
 alias ppy='python -m SimpleHTTPServer'
-function ios {
+function sshios {
   if [[ $1 =~ ^[0-9]+$ ]]; then
     IPORT=$1
   else
