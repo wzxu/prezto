@@ -19,7 +19,7 @@ function up {
   fi
 }
 alias upa='apm update -c false'
-# alias upm='brew reinstall --HEAD --with-official-libass mpv && brew linkapps mpv'
+alias upm='brew reinstall --HEAD --with-official-libass mpv && brew linkapps mpv'
 alias upn='npm -g update'
 # alias upz='cd ~/.zprezto && git fetch upstream && git merge upstream/master && git submodule update --init --recursive && cd -'
 alias upp='up && upn && upa'
@@ -50,8 +50,8 @@ function bcs {
 alias bci='brew cask install'
 alias zap='brew cask zap'
 alias sha256='shasum -a 256'
-alias a='/usr/local/bin/atom'
-alias aa='/usr/local/bin/atom .'
+alias a='/usr/local/bin/atom-beta'
+alias aa='/usr/local/bin/atom-beta .'
 alias f='find . -name'
 alias ni='npm install'
 alias nis='npm install --save-dev'
