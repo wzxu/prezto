@@ -19,7 +19,7 @@ function up {
   fi
 }
 alias upa='apm update -c false'
-alias upm='brew reinstall --HEAD --with-official-libass mpv && brew linkapps mpv'
+alias upm='brew reinstall --HEAD --without-youtube-dl --with-bundle mpv'
 alias upn='npm -g update'
 # alias upz='cd ~/.zprezto && git fetch upstream && git merge upstream/master && git submodule update --init --recursive && cd -'
 alias upp='up && upn && upa'
