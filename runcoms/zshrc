@@ -24,6 +24,7 @@ alias up='upb && upn && upa'
 # alias upz='cd ~/.zprezto && git fetch upstream && git merge upstream/master && git submodule update --init --recursive && cd -'
 alias upm='brew reinstall --HEAD --without-youtube-dl --with-bundle mpv'
 alias b='brew'
+alias bs='brew search'
 alias bi='brew install'
 alias bc='brew cask'
 function bcs {
@@ -47,6 +48,7 @@ function bcs {
   fi
   brew cask info $PKGNAME
 }
+alias bcf='brew cask fetch'
 alias bci='brew cask install'
 alias zap='brew cask zap'
 alias sha256='shasum -a 256'
@@ -77,6 +79,7 @@ function sshios {
 alias z='a ~/.zshrc'
 alias l='ls'
 alias l1='ls -1A'
+alias ltr='ls -ltr'
 alias cls='clear'
 alias ft='cdf'
 alias tf='pushdf'
