@@ -16,7 +16,7 @@ zle -N self-insert url-quote-magic
 # General
 #
 
-setopt BRACE_CCL          # Allow brace character class list expansion.
+unsetopt BRACE_CCL        # Don't allow brace character class list expansion.
 setopt COMBINING_CHARS    # Combine zero-length punctuation characters (accents)
                           # with the base character.
 setopt RC_QUOTES          # Allow 'Henry''s Garage' instead of 'Henry'\''s Garage'.
