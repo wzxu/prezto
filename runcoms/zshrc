@@ -49,8 +49,7 @@ function bcs {
   brew cask info $PKGNAME
 }
 alias bcf='brew cask fetch'
-alias bci='brew cask install'
-alias bcr='brew cask reinstall'
+alias bci='brew cask reinstall'
 alias zap='brew cask zap'
 alias sha256='shasum -a 256'
 alias a='atom'
