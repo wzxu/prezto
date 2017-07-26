@@ -50,6 +50,7 @@ function bcs {
 }
 alias bcf='brew cask fetch'
 alias bci='brew cask reinstall'
+alias bcr='brew cask remove'
 alias zap='brew cask zap'
 alias sha256='shasum -a 256'
 alias a='atom'
