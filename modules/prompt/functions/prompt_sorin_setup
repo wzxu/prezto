@@ -122,7 +122,7 @@ function prompt_sorin_setup {
   zstyle ':prezto:module:git:info:unmerged' format ' %F{1}═ %U%f'
   zstyle ':prezto:module:git:info:untracked' format ' %F{6}… %u%f'
   zstyle ':prezto:module:git:info:keys' format \
-    'status' "%b %p %c:$(coalesce "%s%A%B" "%C")%S%a%d%m%r%U%u"
+    'status' '%b %p %c:%s%A%B%C%S%a%d%m%r%U%u'
 
   # Get the async worker set up
   async_start_worker async_sorin_git -n
