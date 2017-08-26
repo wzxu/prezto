@@ -57,6 +57,8 @@ alias a='atom'
 alias aa='atom .'
 alias s='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
 alias ss='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl .'
+alias v='code-insiders'
+alias vv='code-insiders .'
 alias f='find . -name'
 alias ff='grep -nrw . -e'
 alias sf='cd ~/Dropbox/Documents/Settings/Safari && gulp build && cd -'
@@ -81,8 +83,7 @@ function sshios {
     kill $SSHPID
   fi
 }
-# alias ram='~/Dropbox/Documents/Settings/Scripts/ramdisk.sh'
-alias z='a ~/.zshrc'
+alias z='v ~/.zshrc'
 alias l='ls'
 alias l1='ls -1A'
 alias ltr='ls -ltr'
