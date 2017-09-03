@@ -68,6 +68,8 @@ alias nu='npm uninstall'
 alias nus='npm uninstall --save-dev'
 alias nup='npm update'
 alias dns='sudo killall -HUP mDNSResponder'
+alias python='python3'
+alias python2='/usr/bin/python'
 alias ppy='python -m SimpleHTTPServer'
 function sshios {
   if [[ $1 =~ ^[0-9]+$ ]]; then
