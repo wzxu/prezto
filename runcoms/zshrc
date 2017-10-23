@@ -18,11 +18,11 @@ function upb {
     echo "\e[1;34m==>\e[0m \e[1mOutdated Formulae\e[0m" && echo $OUTDATED && brew upgrade
   fi
 }
-alias upa='apm update -c false'
+# alias upa='apm update -c false'
 alias upn='npm -g update'
-alias up='upb && upn && upa'
+alias up='upb && upn' # && upa'
 # alias upz='cd ~/.zprezto && git fetch upstream && git merge upstream/master && git submodule update --init --recursive && cd -'
-alias upm='brew reinstall --HEAD --without-youtube-dl --with-bundle mpv'
+# alias upm='brew reinstall --HEAD --without-youtube-dl --with-bundle mpv'
 alias b='brew'
 alias bs='brew search'
 alias bi='brew install'
