@@ -18,9 +18,8 @@ function upb {
     echo "\e[1;34m==>\e[0m \e[1mOutdated Formulae\e[0m" && echo $OUTDATED && brew upgrade
   fi
 }
-# alias upa='apm update -c false'
-alias upn='npm -g update'
-alias up='upb && upn' # && upa'
+alias upy='yarn global upgrade-interactive'
+alias up='upb && upy'
 # alias upz='cd ~/.zprezto && git fetch upstream && git merge upstream/master && git submodule update --init --recursive && cd -'
 # alias upm='brew reinstall --HEAD --without-youtube-dl --with-bundle mpv'
 alias b='brew'
@@ -62,11 +61,11 @@ alias vv='code .'
 alias f='find . -name'
 alias ff='grep -nrw . -e'
 alias sf='cd ~/Dropbox/Documents/Settings/Safari && gulp build && cd -'
-alias ni='npm install'
-alias nis='npm install --save-dev'
-alias nu='npm uninstall'
-alias nus='npm uninstall --save-dev'
-alias nup='npm update'
+alias y='yarn'
+alias ya='yarn add'
+alias yad='yarn add --dev'
+alias yr='yarn remove'
+alias yu='yarn upgrade'
 alias dns='sudo killall -HUP mDNSResponder'
 alias ppy='python -m SimpleHTTPServer'
 function sshios {
