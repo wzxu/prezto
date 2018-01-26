@@ -68,7 +68,7 @@ alias y='yarn'
 alias ya='yarn add'
 alias yad='yarn add --dev'
 alias yr='yarn remove'
-alias yu='yarn upgrade'
+alias yu='yarn upgrade-interactive'
 alias dns='sudo killall -HUP mDNSResponder'
 alias ppy='python -m SimpleHTTPServer'
 function sshios {
