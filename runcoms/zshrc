@@ -14,6 +14,29 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Customize to your needs...
+function uph {
+  COINHOSTS=$(ls ~/Dropbox/Documents/Settings/Scripts/nocoin.hosts)
+  OLDDATE=$(head -n1 $COINHOSTS | perl -ne 'print $1 if /(?<=nocoin )(.*) /')
+  OLDHASH=$(head -n1 $COINHOSTS | perl -ne 'print $2 if /(?<=nocoin )(.*) (.*)/')
+  OLDSIZE=$(wc -l $COINHOSTS | awk '{print $1}')
+  OLDSIZE=$(($OLDSIZE-2))
+  NEWDATE=$(date +"%m/%d")
+  NEWHASH=$(curl -s https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt | md5)
+
+  if [[ $OLDHASH != $NEWHASH ]]; then
+    echo "# nocoin $NEWDATE $NEWHASH" >! $COINHOSTS
+    curl -s https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt | sort | sed -e '/^$/d; /^#.*$/d' >> $COINHOSTS
+    echo "# end nocoin" >> $COINHOSTS
+    NEWSIZE=$(wc -l $COINHOSTS | awk '{print $1}')
+    NEWSIZE=$(($NEWSIZE-2))
+    echo "Updated NoCoin adblock list $OLDDATE ($OLDSIZE) -> $NEWDATE ($NEWSIZE). Writing changes to /etc/hosts..."
+    sudo gsed -i -e '/# nocoin/!b;:a;N;/# end nocoin/M!ba;r '"$COINHOSTS" -e 'd' /etc/hosts
+    echo "Done."
+    sudo killall -HUP mDNSResponder
+  else
+    echo "NoCoin adblock list is up to date."
+  fi
+}
 function upb {
   brew update
   OUTDATED=$(brew outdated)
@@ -22,7 +45,7 @@ function upb {
   fi
 }
 alias upy='yarn global upgrade-interactive'
-alias up='upb && upy'
+alias up='upb && upy && uph'
 # alias upz='cd ~/.zprezto && git fetch upstream && git merge upstream/master && git submodule update --init --recursive && cd -'
 # alias upm='brew reinstall --HEAD --without-youtube-dl --with-bundle mpv'
 alias b='brew'
