@@ -70,6 +70,8 @@ if ! zstyle -t ':prezto:module:git:alias' skip 'yes'; then
   alias gcR='git reset "HEAD^"'
   alias gcs='git show'
   alias gcl='git-commit-lost'
+  alias gcy='git cherry -v --abbrev'
+  alias gcY='git cherry -v'
 
   # Conflict (C)
   alias gCl='git --no-pager diff --name-only --diff-filter=U'
@@ -251,6 +253,10 @@ if ! zstyle -t ':prezto:module:git:alias' skip 'yes'; then
   alias gSs='git submodule sync'
   alias gSu='git submodule foreach git pull origin master'
   alias gSx='git-submodule-remove'
+
+  # Tag (t)
+  alias gt='git tag'
+  alias gtl='git tag -l'
 
   # Working Copy (w)
   alias gws='git status --ignore-submodules=${_git_status_ignore_submodules} --short'
