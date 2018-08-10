@@ -129,19 +129,19 @@ function prompt_sorin_setup {
   # Set git-info parameters.
   zstyle ':prezto:module:git:info' verbose 'yes'
   zstyle ':prezto:module:git:info:action' format '%F{7}:%f%F{9}%s%f'
-  zstyle ':prezto:module:git:info:added' format ' %F{3}● %a%f'
-  zstyle ':prezto:module:git:info:ahead' format ' %F{15}↑ %A%f'
-  zstyle ':prezto:module:git:info:behind' format ' %F{15}↓ %B%f'
+  zstyle ':prezto:module:git:info:added' format ' %F{3} %a%f'
+  zstyle ':prezto:module:git:info:ahead' format ' %F{15} %A%f'
+  zstyle ':prezto:module:git:info:behind' format ' %F{15} %B%f'
   zstyle ':prezto:module:git:info:branch' format ' %F{1}%b%f'
-  zstyle ':prezto:module:git:info:clean' format ' %F{2}✔%f'
+  zstyle ':prezto:module:git:info:clean' format ' %F{2}%f'
   zstyle ':prezto:module:git:info:commit' format ' %F{3}%.7c%f'
-  zstyle ':prezto:module:git:info:deleted' format ' %F{1}✖ %d%f'
-  zstyle ':prezto:module:git:info:modified' format ' %F{4}✚ %m%f'
+  zstyle ':prezto:module:git:info:deleted' format ' %F{1} %d%f'
+  zstyle ':prezto:module:git:info:modified' format ' %F{4} %m%f'
   zstyle ':prezto:module:git:info:position' format ' %F{13}%p%f'
-  zstyle ':prezto:module:git:info:renamed' format ' %F{2}➜ %r%f'
-  zstyle ':prezto:module:git:info:stashed' format ' %F{5}⚑ %S%f'
-  zstyle ':prezto:module:git:info:unmerged' format ' %F{1}═ %U%f'
-  zstyle ':prezto:module:git:info:untracked' format ' %F{6}… %u%f'
+  zstyle ':prezto:module:git:info:renamed' format ' %F{2} %r%f'
+  zstyle ':prezto:module:git:info:stashed' format ' %F{5} %S%f'
+  zstyle ':prezto:module:git:info:unmerged' format ' %F{1} %U%f'
+  zstyle ':prezto:module:git:info:untracked' format ' %F{6} %u%f'
   zstyle ':prezto:module:git:info:keys' format \
     'status' '%b %p %c:%s%A%B%C%S%a%d%m%r%U%u'
 
@@ -155,7 +155,7 @@ function prompt_sorin_setup {
   _prompt_sorin_pwd=''
 
   # Define prompts.
-  PROMPT='%(?.%F{2}✔%f.%F{1}✘ %?%f) ${SSH_TTY:+"%F{9}%n%f%F{7}@%f%F{3}%m%f "}%F{4}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
+  PROMPT='%(?.%F{2}%f.%F{1} %?%f) ${SSH_TTY:+"%F{9}%n%f%F{7}@%f%F{3}%m%f "}%F{4}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
   RPROMPT='$python_info[virtualenv]${editor_info[overwrite]}'
   RPROMPT+='${VIM:+" %B%F{6}V%f%b"}${_prompt_sorin_git}'
   SPROMPT='zsh: correct %F{1}%R%f to %F{2}%r%f [nyae]? '
