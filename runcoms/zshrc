@@ -64,7 +64,7 @@ function upo {
   fi
 }
 alias upy='yarn global upgrade-interactive'
-alias up='upb && upy && uph && upo'
+alias up='upb && upy && upo'
 # alias upz='cd ~/.zprezto && git fetch upstream && git merge upstream/master && git submodule update --init --recursive && cd -'
 # alias upm='brew reinstall --HEAD --without-youtube-dl --with-bundle mpv'
 alias b='brew'
