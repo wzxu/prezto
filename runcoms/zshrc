@@ -72,7 +72,7 @@ alias bs='brew search'
 alias bi='brew install'
 alias bc='brew cask'
 function bcs {
-  RESULT=$(script -q /dev/null brew cask search $1)
+  RESULT=$(script -q /dev/null brew search $1)
   echo $RESULT
   if [[ $RESULT != *"Partial matches"* ]]; then
     echo "\e[1;34m==>\e[0m \e[1mShowing info for $1\e[0m"
@@ -97,8 +97,6 @@ alias bci='brew cask install --force'
 alias bcr='brew cask remove'
 alias zap='brew cask zap'
 alias sha256='shasum -a 256'
-# alias a='atom'
-# alias aa='atom .'
 # alias s='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
 # alias ss='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl .'
 alias v='code'
@@ -112,7 +110,7 @@ alias yad='yarn add --dev'
 alias yr='yarn remove'
 alias yu='yarn upgrade-interactive'
 alias dns='sudo killall -HUP mDNSResponder'
-alias ppy='python -m SimpleHTTPServer'
+alias ppy='python3 -m http.server'
 function sshios {
   if [[ $1 =~ ^[0-9]+$ ]]; then
     IPORT=$1
