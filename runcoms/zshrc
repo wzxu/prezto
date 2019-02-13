@@ -10,134 +10,24 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Source fzf autocompletion
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # Customize to your needs...
-function upb {
-  brew update
-  OUTDATED=$(brew outdated)
-  if [[ -n $OUTDATED ]]; then
-    echo "\e[1;34m==>\e[0m \e[1mOutdated Formulae\e[0m" && echo $OUTDATED && brew upgrade
-  fi
-}
-function uph {
-  COINHOSTS=$(ls ~/Dropbox/Documents/Settings/Scripts/nocoin.hosts)
-  OLDDATE=$(head -n1 $COINHOSTS | perl -ne 'print $1 if /(?<=nocoin )(.*) /')
-  OLDHASH=$(head -n1 $COINHOSTS | perl -ne 'print $2 if /(?<=nocoin )(.*) (.*)/')
-  OLDSIZE=$(wc -l $COINHOSTS | awk '{print $1}')
-  OLDSIZE=$(($OLDSIZE-2))
-  NEWDATE=$(date +"%m/%d")
-  NEWHASH=$(curl -s https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt | md5)
-
-  if [[ $OLDHASH != $NEWHASH ]]; then
-    echo "# nocoin $NEWDATE $NEWHASH" >! $COINHOSTS
-    curl -s https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt | sort | sed -e '/^$/d; /^#.*$/d' >> $COINHOSTS
-    echo "# end nocoin" >> $COINHOSTS
-    NEWSIZE=$(wc -l $COINHOSTS | awk '{print $1}')
-    NEWSIZE=$(($NEWSIZE-2))
-    echo "Updated NoCoin adblock list $OLDDATE ($OLDSIZE) -> $NEWDATE ($NEWSIZE). Writing changes to /etc/hosts..."
-    sudo gsed -i -e '/# nocoin/!b;:a;N;/# end nocoin/M!ba;r '"$COINHOSTS" -e 'd' /etc/hosts
-    echo "Done."
-    sudo killall -HUP mDNSResponder
-  else
-    echo "NoCoin adblock list is up to date."
-  fi
-}
-function upo {
-  BLOCKLIST=$(ls ~/Dropbox/Documents/Settings/Opera/14.txt)
-  BLOCKHASH=$(ls ~/Dropbox/Documents/Settings/Opera/14.hash)
-  OLDDATE=$(head -n1 $BLOCKHASH)
-  OLDHASH=$(tail -n1 $BLOCKHASH)
-  NEWLIST=$(curl -s https://filters.adtidy.org/extension/chromium/filters/14.txt)
-  NEWDATE=$(echo $NEWLIST | head -n 10 | grep TimeUpdated | cut -c 16- | sed "s/$(printf '\r')\$//")
-  NEWHASH=$(echo $NEWLIST | md5)
-
-  if [[ $OLDHASH != $NEWHASH ]]; then
-    echo $NEWDATE >! $BLOCKHASH
-    echo $NEWHASH >> $BLOCKHASH
-    echo "[Adblock Plus 2.0]" >! $BLOCKLIST
-    echo $NEWLIST >> $BLOCKLIST
-    echo "Updated AdGuard Annoyances filter $OLDDATE -> $NEWDATE."
-  else
-    echo "AdGuard Annoyances filter is up to date."
-  fi
-}
-alias upy='yarn global upgrade-interactive'
-alias up='upb && upy && upo'
-# alias upz='cd ~/.zprezto && git fetch upstream && git merge upstream/master && git submodule update --init --recursive && cd -'
-# alias upm='brew reinstall --HEAD --without-youtube-dl --with-bundle mpv'
-alias b='brew'
-alias bs='brew search'
-alias bi='brew install'
-alias bc='brew cask'
-function bcs {
-  RESULT=$(script -q /dev/null brew search $1)
-  echo $RESULT
-  if [[ $RESULT != *"Partial matches"* ]]; then
-    echo "\e[1;34m==>\e[0m \e[1mShowing info for $1\e[0m"
-    PKGNAME=$1
-  elif [[ $RESULT == *"Exact match"* ]]; then
-    echo -n "\e[1;34m==>\e[0m \e[1mSelect package to show info [$1]:\e[0m "
-    read PKGNAME
-    if [[ -z $PKGNAME ]]; then
-      PKGNAME=$1
-    fi
-  else
-    echo -n "\e[1;34m==>\e[0m \e[1mSelect package to show info:\e[0m "
-    read PKGNAME
-    if [[ -z $PKGNAME ]]; then
-      return
-    fi
-  fi
-  brew cask info $PKGNAME
-}
-alias bcf='brew cask fetch'
-alias bci='brew cask install --force'
-alias bcr='brew cask remove'
-alias zap='brew cask zap'
 alias sha256='shasum -a 256'
-# alias s='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
-# alias ss='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl .'
-alias v='code'
-alias vv='code .'
-# alias f='find . -name'
-# alias ff='grep -nrw . -e'
-alias sf='cd ~/Dropbox/Documents/Settings/Safari && gulp build && cd -'
+alias f='find . -name'
+alias ff='grep -nrw . -e'
 alias y='yarn'
 alias ya='yarn add'
 alias yad='yarn add --dev'
 alias yr='yarn remove'
 alias yu='yarn upgrade-interactive'
-alias dns='sudo killall -HUP mDNSResponder'
-alias ppy='python3 -m http.server'
-function sshios {
-  if [[ $1 =~ ^[0-9]+$ ]]; then
-    IPORT=$1
-  else
-    IPORT=50022
-  fi
-  ~/Dropbox/Documents/Misc/itnl_rev8/itnl --iport $IPORT --lport 50022 &
-  SSHPID=$!
-  trap "kill $SSHPID" SIGINT SIGTERM EXIT
-  ssh root@localhost -p 50022
-  if [[ $? != 0 ]]; then
-    kill $SSHPID
-  fi
-}
-alias z='v ~/.zshrc'
+alias ppy='http-serve'
+alias z='vi ~/.zshrc'
 alias l='ls'
 alias l1='ls -1A'
 alias ltr='ls -ltr'
 alias cls='clear'
-alias ft='cdf'
-alias tf='pushdf'
-# alias -g ...='../..'
-# alias -g ....='../../..'
-# alias -g .....='../../../..'
 alias -g C='| wc -l'
 alias -g H='| head'
-alias -g L="| less"
-alias -g N="| /dev/null"
+alias -g L='| less'
+alias -g N='| /dev/null'
 alias -g S='| sort'
 alias -g G='| grep'
