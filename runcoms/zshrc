@@ -10,15 +10,29 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+# Use Homebrew ruby
+PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/2.7.0/bin:/usr/local/opt/gettext/bin:$PATH"
+
 # Source fzf autocompletion
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Customize to your needs...
 function upb {
-  brew update
+  if [[ $# == 0 ]]; then
+    brew update
+  fi
   OUTDATED=$(brew outdated)
   if [[ -n $OUTDATED ]]; then
     echo "\e[1;34m==>\e[0m \e[1mOutdated Formulae\e[0m" && echo $OUTDATED && brew upgrade
+  fi
+}
+function upc {
+  if [[ $# == 0 ]]; then
+    brew update
+  fi
+  OUTDATED=$(brew cask outdated)
+  if [[ -n $OUTDATED ]]; then
+    echo "\e[1;34m==>\e[0m \e[1mOutdated Casks\e[0m" && echo $OUTDATED && brew cask upgrade
   fi
 }
 function uph {
@@ -64,7 +78,7 @@ function upo {
   fi
 }
 alias upy='yarn global upgrade-interactive'
-alias up='upb && upy && upo'
+alias up='upb - && upc - && upy'
 # alias upz='cd ~/.zprezto && git fetch upstream && git merge upstream/master && git submodule update --init --recursive && cd -'
 # alias upm='brew reinstall --HEAD --without-youtube-dl --with-bundle mpv'
 alias b='brew'
