@@ -21,18 +21,18 @@ function upb {
   if [[ $# == 0 ]]; then
     brew update
   fi
-  OUTDATED=$(brew outdated)
+  OUTDATED=$(brew outdated --formula)
   if [[ -n $OUTDATED ]]; then
-    echo "\e[1;34m==>\e[0m \e[1mOutdated Formulae\e[0m" && echo $OUTDATED && brew upgrade
+    echo "\e[1;34m==>\e[0m \e[1mOutdated Formulae\e[0m" && echo $OUTDATED && brew upgrade --formula
   fi
 }
 function upc {
   if [[ $# == 0 ]]; then
     brew update
   fi
-  OUTDATED=$(brew cask outdated)
+  OUTDATED=$(brew outdated --cask)
   if [[ -n $OUTDATED ]]; then
-    echo "\e[1;34m==>\e[0m \e[1mOutdated Casks\e[0m" && echo $OUTDATED && brew cask upgrade
+    echo "\e[1;34m==>\e[0m \e[1mOutdated Casks\e[0m" && echo $OUTDATED && brew upgrade --cask
   fi
 }
 function uph {
@@ -85,7 +85,6 @@ alias aria='aria2c -c -s20 -k10M -x16'
 alias b='brew'
 alias bs='brew search'
 alias bi='brew install'
-alias bc='brew cask'
 function bcs {
   RESULT=$(script -q /dev/null brew search $1)
   echo $RESULT
@@ -105,12 +104,10 @@ function bcs {
       return
     fi
   fi
-  brew cask info $PKGNAME
+  brew info --cask $PKGNAME
 }
-alias bcf='brew cask fetch'
-alias bci='brew cask install --force'
-alias bcr='brew cask remove'
-alias zap='brew cask zap'
+alias br='brew remove'
+alias zap='brew remove --zap'
 alias sha256='shasum -a 256'
 # alias s='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
 # alias ss='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl .'
