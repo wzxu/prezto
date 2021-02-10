@@ -11,10 +11,16 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Use Homebrew ruby
-PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/2.7.0/bin:/usr/local/opt/gettext/bin:$PATH"
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+
+# Use rbenv
+# eval "$(rbenv init -)"
+
+# Use Homebrew OpenSSL
+# export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl)"
 
 # Source fzf autocompletion
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Customize to your needs...
 function upb {
@@ -35,52 +41,8 @@ function upc {
     echo "\e[1;34m==>\e[0m \e[1mOutdated Casks\e[0m" && echo $OUTDATED && brew upgrade --cask
   fi
 }
-function uph {
-  COINHOSTS=$(ls ~/Dropbox/Documents/Settings/Scripts/nocoin.hosts)
-  OLDDATE=$(head -n1 $COINHOSTS | perl -ne 'print $1 if /(?<=nocoin )(.*) /')
-  OLDHASH=$(head -n1 $COINHOSTS | perl -ne 'print $2 if /(?<=nocoin )(.*) (.*)/')
-  OLDSIZE=$(wc -l $COINHOSTS | awk '{print $1}')
-  OLDSIZE=$(($OLDSIZE-2))
-  NEWDATE=$(date +"%m/%d")
-  NEWHASH=$(curl -s https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt | md5)
-
-  if [[ $OLDHASH != $NEWHASH ]]; then
-    echo "# nocoin $NEWDATE $NEWHASH" >! $COINHOSTS
-    curl -s https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt | sort | sed -e '/^$/d; /^#.*$/d' >> $COINHOSTS
-    echo "# end nocoin" >> $COINHOSTS
-    NEWSIZE=$(wc -l $COINHOSTS | awk '{print $1}')
-    NEWSIZE=$(($NEWSIZE-2))
-    echo "Updated NoCoin adblock list $OLDDATE ($OLDSIZE) -> $NEWDATE ($NEWSIZE). Writing changes to /etc/hosts..."
-    sudo gsed -i -e '/# nocoin/!b;:a;N;/# end nocoin/M!ba;r '"$COINHOSTS" -e 'd' /etc/hosts
-    echo "Done."
-    sudo killall -HUP mDNSResponder
-  else
-    echo "NoCoin adblock list is up to date."
-  fi
-}
-function upo {
-  BLOCKLIST=$(ls ~/Dropbox/Documents/Settings/Opera/14.txt)
-  BLOCKHASH=$(ls ~/Dropbox/Documents/Settings/Opera/14.hash)
-  OLDDATE=$(head -n1 $BLOCKHASH)
-  OLDHASH=$(tail -n1 $BLOCKHASH)
-  NEWLIST=$(curl -s https://filters.adtidy.org/extension/chromium/filters/14.txt)
-  NEWDATE=$(echo $NEWLIST | head -n 10 | grep TimeUpdated | cut -c 16- | sed "s/$(printf '\r')\$//")
-  NEWHASH=$(echo $NEWLIST | md5)
-
-  if [[ $OLDHASH != $NEWHASH ]]; then
-    echo $NEWDATE >! $BLOCKHASH
-    echo $NEWHASH >> $BLOCKHASH
-    echo "[Adblock Plus 2.0]" >! $BLOCKLIST
-    echo $NEWLIST >> $BLOCKLIST
-    echo "Updated AdGuard Annoyances filter $OLDDATE -> $NEWDATE."
-  else
-    echo "AdGuard Annoyances filter is up to date."
-  fi
-}
 alias upy='yarn global upgrade-interactive'
 alias up='brew update && upb - && upc - && upy'
-# alias upz='cd ~/.zprezto && git fetch upstream && git merge upstream/master && git submodule update --init --recursive && cd -'
-# alias upm='brew reinstall --HEAD --without-youtube-dl --with-bundle mpv'
 alias aria='aria2c -c -s20 -k10M -x16'
 alias b='brew'
 alias bs='brew search'
@@ -109,8 +71,6 @@ function bcs {
 alias br='brew remove'
 alias zap='brew remove --zap'
 alias sha256='shasum -a 256'
-# alias s='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
-# alias ss='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl .'
 alias v='code'
 alias vv='code .'
 alias f='find . -name'
@@ -144,9 +104,6 @@ alias ltr='ls -ltr'
 alias cls='clear'
 alias ft='cdf'
 alias tf='pushdf'
-# alias -g ...='../..'
-# alias -g ....='../../..'
-# alias -g .....='../../../..'
 alias -g C='| wc -l'
 alias -g H='| head'
 alias -g L="| less"
