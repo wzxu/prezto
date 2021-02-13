@@ -68,6 +68,7 @@ function bcs {
   fi
   brew info --cask $PKGNAME
 }
+alias bci='brew install --cask --force'
 alias br='brew remove'
 alias zap='brew remove --zap'
 alias sha256='shasum -a 256'
