@@ -13,15 +13,6 @@ fi
 # Use Homebrew ruby
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 
-# Use rbenv
-# eval "$(rbenv init -)"
-
-# Use Homebrew OpenSSL
-# export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl)"
-
-# Source fzf autocompletion
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # Customize to your needs...
 function upb {
   if [[ $# == 0 ]]; then
@@ -79,7 +70,7 @@ alias v='code'
 alias vv='code .'
 alias f='find . -name'
 alias ff='rg'
-alias sf='cd ~/Dropbox/Documents/Settings/Safari && gulp build && cd -'
+alias sf='cd ~/Library/Mobile\ Documents/com\~apple\~CloudDocs/Documents/Settings/Safari && gulp build && cd -'
 alias y='yarn'
 alias ya='yarn add'
 alias yad='yarn add --dev'
@@ -88,20 +79,6 @@ alias yu='yarn upgrade-interactive'
 alias yt='youtube-dl -f "bestvideo[height<=?1440]+bestaudio/best[height<=?1440]"'
 alias dns='sudo killall -HUP mDNSResponder'
 alias ppy='http-serve'
-function sshios {
-  if [[ $1 =~ ^[0-9]+$ ]]; then
-    IPORT=$1
-  else
-    IPORT=22
-  fi
-  ~/Dropbox/Documents/Misc/itnl_rev8/itnl --iport $IPORT --lport 50022 &
-  SSHPID=$!
-  trap "kill $SSHPID" SIGINT SIGTERM EXIT
-  ssh root@localhost -p 50022
-  if [[ $? != 0 ]]; then
-    kill $SSHPID
-  fi
-}
 alias z='v ~/.zshrc'
 alias l='ls'
 alias l1='ls -1A'
